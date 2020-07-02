@@ -472,7 +472,8 @@ save_out_standard_file <- function(programs, Institution, region){
   }
   
   programs = programs %>% 
-    select(institution_name, prov_terr, record_id, member, url, Program, Credential, Campus, Duration, Description, WIL)
+    select(institution_name, prov_terr, record_id, member, url, Program, Credential, Campus, Duration, Description, WIL) %>% 
+    distinct()
   
   old_files = list.files(paste0("programs/",region))
   old_files = if(length(old_files) > 1) old_files[grepl(clean_string(Institution), old_files)]
