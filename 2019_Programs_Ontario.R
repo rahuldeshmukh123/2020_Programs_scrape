@@ -57,6 +57,21 @@ colleges %>%
 ###########################################
 
 
+fprof <- makeFirefoxProfile(list(
+  browser.download.folderList = 2L,  
+  browser.download.manager.showWhenStarting = FALSE,
+  browser.helperApps.neverAsk.openFile = "text/csv",
+  browser.helperApps.neverAsk.saveToDisk = "text/csv",
+  browser.helperApps.alwaysAsk.force = FALSE,
+  browser.download.manager.showAlertOnComplete = FALSE,
+  browser.download.manager.closeWhenDone = TRUE )
+)
+
+rD <- rsDriver(browser = "firefox", 
+               verbose = FALSE)
+
+remDr <- rD$client
+
 program_scrapes = list.files("2019_Programs_Ontario")
 #source the above files
 #print(Instittution$instituition_name)

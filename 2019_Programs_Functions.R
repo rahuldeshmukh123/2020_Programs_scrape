@@ -81,6 +81,10 @@ clean_tags <- function(stringVar){
   return(gsub("^[[:blank:]]+", "", gsub("[[:blank:]]{2,}", " ", gsub("\r|\n|\t", "", stringVar))))
 }
 
+clean_css_space <- function(stringVar) {
+  return(gsub(" ", ".", stringVar))
+}
+
 # key workhorse - reads in html structure
 read_webPage <- function(url){
   
