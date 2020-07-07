@@ -452,7 +452,7 @@ course_eval <- function(courses, Institution, Program, Program_url, noDescriptio
   }
   write.csv(course_df, paste0("courses/", clean_string(Institution), "/", progFileName, ".csv"))
   if(FR == F){
-    WIL <- course_df$Name[grepl("Pratique|Practicum|Field placement|Placement|Work experience|Co-op|coop|Apprentice|internship|field practice|clinical practice|clinical work|work term| stage ", course_df$Name, ignore.case = T)]  
+    WIL <- course_df$Name[grepl("Pratique|Practicum|Field placement|Placement|Work experience|Co-op|coop|Apprentice|internship|field practice|clinical practice|clinical work|work term| stage |^wil |^wil$", course_df$Name, ignore.case = T)]  
   }else {
     WIL <- course_df$Name[grepl(" stage ", course_df$Name, ignore.case = T)]  
   }
