@@ -82,7 +82,7 @@ clean_tags <- function(stringVar){
 }
 
 clean_css_space <- function(stringVar) {
-  return(gsub(" ", ".", stringVar))
+  return(gsub("[[:space:]]+", ".", stringVar))
 }
 
 # key workhorse - reads in html structure
@@ -332,6 +332,13 @@ get_details_for_filtering <- function(webPage, class, split_on = "\n"){
            strsplit(split_on) %>% 
            unlist())
 }
+
+
+get_detail_df <- function(detail_df, category = "", separation = " "){
+  names(detail_df) <- c("Category", "Detail")
+  return(detail_df %>% filter(grepl(category, Category, ignore.case = T)) %>% select(Detail) %>% unlist() %>% clean_tags() %>% paste(., collapse = separation))
+}
+
 #Function for finding button to click, then finding subsequently revealed data using RSelenium variable
 find_and_click <- function(remDr, clickPath, dataPath, pause = .75){
   
@@ -452,7 +459,7 @@ course_eval <- function(courses, Institution, Program, Program_url, noDescriptio
   }
   write.csv(course_df, paste0("courses/", clean_string(Institution), "/", progFileName, ".csv"))
   if(FR == F){
-    WIL <- course_df$Name[grepl("Pratique|Practicum|Field placement|Placement|Work experience|Co-op|coop|Apprentice|internship|field practice|clinical practice|clinical work|work term| stage |^wil |^wil$", course_df$Name, ignore.case = T)]  
+    WIL <- course_df$Name[grepl("Pratique|Practicum|Field placement|Placement|Work experience|Co-op|coop|Apprentice|internship|field practice|clinical practice|clinical work|work term| stage |^wil |^wil$|capstone", course_df$Name, ignore.case = T)]  
   }else {
     WIL <- course_df$Name[grepl(" stage ", course_df$Name, ignore.case = T)]  
   }
