@@ -80,15 +80,9 @@ program_scrapes %>%
 
 
 program_datas = list.files("programs/Ontario", pattern = "programs.rds")
-Atlantic_programs = program_datas %>% 
+Ontario_programs = program_datas %>% 
   map(~ read_rds(paste0("programs/Ontario/", .))) %>% 
   bind_rows()
 
 
-program_datas = list.files("programs/Territories", pattern = "programs.rds")
-Terr_programs = program_datas %>% 
-  map(~ read_rds(paste0("programs/Territories/", .))) %>% 
-  bind_rows()
 
-Atl_terr_programs = Atlantic_programs %>% 
-  bind_rows(Terr_programs)

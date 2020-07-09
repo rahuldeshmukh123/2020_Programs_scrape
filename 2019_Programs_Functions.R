@@ -339,6 +339,16 @@ get_detail_df <- function(detail_df, category = "", separation = " "){
   return(detail_df %>% filter(grepl(category, Category, ignore.case = T)) %>% select(Detail) %>% unlist() %>% clean_tags() %>% paste(., collapse = separation))
 }
 
+
+get_detail_id <- function(webPage, id = "", attribute = 'id'){
+  div_ids <- webPage %>%  html_attr(attribute)
+  
+  detail = webPage[grepl(id, div_ids)] 
+  return(detail)
+  
+}
+
+
 #Function for finding button to click, then finding subsequently revealed data using RSelenium variable
 find_and_click <- function(remDr, clickPath, dataPath, pause = .75){
   
