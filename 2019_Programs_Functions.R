@@ -439,8 +439,21 @@ get_detail_from_table <- function(table, searchColumn = "", detailColumn = "", s
 }
   
   
-  
+get_detail_node_table <- function(webPage){
+  return(tibble(nodeName = webPage %>% html_name(),
+                nodeText = webPage %>% html_text()))
+}  
 
+
+get_details_from_node_table <- function(node_table, nodeType_filter = "", nodeText_filter = ""){
+  node_table %>% 
+    mutate(section = zoo::na.locf(ifelse(grepl(nodeType_filter, nodeName), nodeText, NA), na.rm = F)) %>% 
+    filter(grepl(nodeText_filter, section)) %>% 
+    filter(nodeName != nodeType_filter) %>% 
+    select(nodeText) %>% 
+    unlist() %>% 
+    paste(., collapse = " ")
+}
 
 ##### This is the shakiest funciton - getting course data
 course_eval <- function(courses, Institution, Program, Program_url, noDescription = T, FR = F){
